@@ -20,31 +20,35 @@ public class Count implements Visitor<Integer> {
 
     @Override
     public Integer onGroup(final Group g) {
-        return ;
+
+        int total = 0;
+        for (shape child : g.getShapes()){
+            total += child.accept(this);}
+
     }
 
     @Override
     public Integer onRectangle(final Rectangle q) {
-        return 1;
+
+        return 1//shuold return the rectangle that was already made
     }
 
     @Override
     public Integer onOutline(final Outline o) {
-        return -1;
+        o.getShape().accept(this);
     }
 
     @Override
     public Integer onFill(final Fill c) {
-        return -1;
+        c.getShape().accept(this);
     }
 
     @Override
     public Integer onLocation(final Location l) {
-        return -1;
-    }
+        return l.getShape().accept(this);}
 
     @Override
     public Integer onStrokeColor(final StrokeColor c) {
-        return -1;
+        return c.getShape().accept(this);// these should return the accepted
     }
 }
